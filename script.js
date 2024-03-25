@@ -123,3 +123,51 @@ scrollBottom.forEach((el)=>observer.observe(el));
 
 const scrollTop = document.querySelectorAll(".scroll-top");
 scrollTop.forEach((el)=>observer.observe(el));
+
+
+
+const form = document.querySelector('form');
+
+const username = document.getElementById('name');
+const email = document.getElementById('email');
+const address = document.getElementById('Address');
+const phone = document.getElementById('phone');
+const messageField = document.getElementById('message');
+
+function sendEmail(){
+    const boldStart = '<strong>'; // HTML tag to start bold text
+    const boldEnd = '</strong>'; // HTML tag to end bold text
+
+    const bodyMessage = `
+        ${boldStart}Name:${boldEnd} ${username.value} <br> 
+        ${boldStart}Email:${boldEnd} ${email.value} <br> 
+        ${boldStart}Address:${boldEnd} ${address.value} <br> 
+        ${boldStart}Phone Number:${boldEnd} ${phone.value} <br> 
+        ${boldStart}Message:${boldEnd} ${messageField.value} <br>
+    `;
+
+    Email.send({
+        Host : "smtp.elasticemail.com",
+        Username : "ladhadeepak02@gmail.com",
+        Password : "1C0E442AA775DDD6AA4E69646AA0D32E643E",
+        To : 'ladhadeepak2807@gmail.com',
+        From :"ladhadeepak02@gmail.com",
+        Subject : "Networking with Deepak",
+        Body : bodyMessage
+    }).then(
+        message => {
+            alert(message);
+            // Clear form fields
+            username.value = '';
+            email.value = '';
+            address.value = '';
+            phone.value = '';
+            messageField.value = ''; // Changed variable name
+        }
+    );
+}
+
+form.addEventListener("submit",(e)=>{
+    e.preventDefault();
+    sendEmail();
+});
